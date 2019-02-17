@@ -1,0 +1,32 @@
+{
+  "name": "jsterm",
+  "version": "1.0.0",
+  "description": "A terminal emulator made with Node.js and xterm.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node example/index.js",
+    "install": "npm install --prefix src/public xterm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sighmir/jsterm.git"
+  },
+  "keywords": [
+    "terminal",
+    "cmd",
+    "term",
+    "powershell"
+  ],
+  "author": "Guilherme Caulada (Sighmir)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Sighmir/jsterm/issues"
+  },
+  "homepage": "https://github.com/Sighmir/jsterm#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "node-pty": "^0.8.1",
+    "socket.io": "^2.2.0"
+  }
+}
