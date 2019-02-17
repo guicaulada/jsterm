@@ -33,7 +33,7 @@ term.listen(1337)
 console.log('Terminal listening on localhost:1337')
 ```
 
-Refer to the [jsterm examples](https://github.com/Sighmir/jsterm/tree/master/examples) for more information.  
+Refer to the [jsterm examples](https://github.com/Sighmir/jsterm/tree/master/example) for more information.  
 
 ## License ##
 ```
