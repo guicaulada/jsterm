@@ -27,7 +27,6 @@ class Terminal {
     self.port = port
     self.server = new Server()
     self.server.set('view engine', 'ejs')
-    self.server.use(path.join(__dirname, 'public'))
     self.server.on('connection', (client) => {
       client.on('spawn', (shll) => {
         if (!shll) shll = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
@@ -62,7 +61,13 @@ class Terminal {
     })
   }
 
+  use(location) {
+    this.location = location
+    this.server.use(location)
+  }
+
   listen() {
+    if (!this.location) this.server.use(path.join(__dirname, 'public'))
     return this.server.listen(this.port)
   }
 }
