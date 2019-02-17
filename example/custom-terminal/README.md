@@ -1,4 +1,30 @@
-/*
+# Customizing your terminal emulator #
+
+With custom public files you can customize the design and program new features for your terminal emulator.
+
+## Requirements
+* [xterm](https://www.npmjs.com/package/xterm)
+
+## Documentation ##
+### Getting Started
+
+Install xterm.js on your public folder using npm:
+
+```bash
+$ npm install --prefix ./src/public xterm
+```
+
+You can now use xterm.js like so:
+
+```html
+<link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
+<script src="node_modules/xterm/dist/xterm.js"></script>
+```
+
+Refer to the [xterm.js documentation](https://xtermjs.org/docs) for more information.  
+
+## License ##
+```
 jsterm - A terminal emulator made with Node.js and xterm.js.
 Copyright (C) 2019  Guilherme Caulada (Sighmir)
 
@@ -14,16 +40,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
-
-let Terminal = require('jsterm')
-
-let term = new Terminal(1337)
-
-term.add('cmd.exe')
-term.add('bash.exe')
-term.add('node.exe')
-
-term.listen(1337)
-
-console.log('Terminal listening on localhost:1337')
+```

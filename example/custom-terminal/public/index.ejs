@@ -1,4 +1,4 @@
-/*
+<!--
 jsterm - A terminal emulator made with Node.js and xterm.js.
 Copyright (C) 2019  Guilherme Caulada (Sighmir)
 
@@ -14,16 +14,27 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+-->
 
-let Terminal = require('jsterm')
+<html>
+  <head>
+    <title>jsterm</title>
 
-let term = new Terminal(1337)
+    <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
+    <script src="node_modules/xterm/dist/xterm.js"></script>
 
-term.add('cmd.exe')
-term.add('bash.exe')
-term.add('node.exe')
+    <script src="node_modules/xterm/dist/addons/fit/fit.js"></script>
 
-term.listen(1337)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
-console.log('Terminal listening on localhost:1337')
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <script>
+      let shell = '<%= shell%>'
+      let port = <%= port%>
+    </script>
+    <script src='./index.js'></script>
+  </body>
+</html>

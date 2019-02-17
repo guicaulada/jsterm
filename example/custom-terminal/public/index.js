@@ -16,14 +16,33 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-let Terminal = require('jsterm')
+const socket = io.connect('http://localhost:' + port)
 
-let term = new Terminal(1337)
+Terminal.applyAddon(fit)
 
-term.add('cmd.exe')
-term.add('bash.exe')
-term.add('node.exe')
+const term = new Terminal({
+  rightClickSelectsWord: true,
+  cursorBlink: true,
+  scrollback: 5000,
+  tabStopWidth: 4
+})
 
-term.listen(1337)
+term.open(document.getElementById('terminal'))
 
-console.log('Terminal listening on localhost:1337')
+term.on('data', (data) => {
+  socket.emit('write', data)
+})
+
+socket.on('write', (data) => {
+  term.write(data)
+})
+
+socket.emit('spawn', shell)
+
+term.fit()
+
+window.addEventListener('resize', (data) => {
+  setTimeout(() => {
+    term.fit()
+  }, 250)
+})

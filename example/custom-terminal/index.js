@@ -16,9 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+let path = require('path')
 let Terminal = require('jsterm')
 
 let term = new Terminal(1337)
+
+term.use(path.join(__dirname, 'public'))
 
 term.add('cmd.exe')
 term.add('bash.exe')
