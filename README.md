@@ -11,7 +11,7 @@
 ## Documentation ##
 ### Getting Started
 
-Install jsterm and xterm.js using npm:
+Install jsterm using npm:
 
 ```bash
 $ npm install jsterm
