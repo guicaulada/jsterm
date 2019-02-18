@@ -18,7 +18,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const Terminal = require('jsterm')
 
+const allow = [
+  'localhost',
+  '127.0.0.1',
+  '0.0.0.0',
+  '1'
+]
+
 let term = new Terminal(1337)
+
+term.app.use('/*', (req, res, next) => {
+  let ip = req.ip.split(':').slice(-1)[0]
+  if (allow.includes(ip)) {
+    next()
+  } else {
+    res.end()
+  }
+})
 
 term.add('cmd.exe')
 term.add('bash.exe')
