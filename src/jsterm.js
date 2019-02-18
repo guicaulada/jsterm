@@ -20,14 +20,15 @@ const os = require('os')
 const path = require('path')
 const spawn = require('node-pty').spawn
 const Server = require('./server')
+const express = require('express')
 
-class Terminal {
+class Terminal extends Server {
   constructor(port) {
+    super()
     let self = this
     self.port = port
-    self.server = new Server()
-    self.server.set('view engine', 'ejs')
-    self.server.on('connection', (client) => {
+    self.app.set('view engine', 'ejs')
+    self.socket.on('connection', (client) => {
       client.on('spawn', (shll) => {
         if (!shll) shll = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
         let term = spawn(shll, [], { cwd: os.homedir(), env: process.env })
@@ -49,7 +50,7 @@ class Terminal {
         })
       })
     })
-    self.server.get('/', (req, res) => {
+    self.app.get('/', (req, res) => {
       self.render(res)
     })
   }
@@ -60,19 +61,13 @@ class Terminal {
 
   add(shell) {
     let self = this
-    self.server.get('/'+shell, (req, res) => {
+    self.app.get('/'+shell, (req, res) => {
       self.render(res, shell)
     })
   }
 
-  use(location) {
-    this.location = location
-    this.server.use(location)
-  }
-
   listen() {
-    if (!this.location) this.server.use(path.join(__dirname, 'public'))
-    return this.server.listen(this.port)
+    return this.http.listen(this.port), this.app.use(express.static(path.join(__dirname, 'public')))
   }
 }
 

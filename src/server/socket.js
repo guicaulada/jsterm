@@ -18,12 +18,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const io = require('socket.io')
 
-class Socket {
+class ExtendableProxy {
+  constructor(getset = {}) {
+    return new Proxy(this, getset);
+  }
+}
+class Socket extends ExtendableProxy {
   constructor(server) {
+    super({
+      get: (socket, method) => {
+        if (method === 'clients' || method === 'io') return socket[method]
+        else return socket.io[method]
+      }
+    })
     let self = this
     self.io = io(server)
     self.clients = new Set()
-    self.io.on('connection', (client) => {
+    self.on('connection', (client) => {
       self.clients.add(client)
 
       client.on('disconnect', () => {

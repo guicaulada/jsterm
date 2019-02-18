@@ -23,32 +23,8 @@ const http = require('http')
 class Server {
   constructor() {
     this.app = express()
-    this.server = http.createServer(this.app)
-    this.socket = new Socket(this.server)
-  }
-
-  use(path) {
-    return this.app.use(express.static(path))
-  }
-
-  get(path, func) {
-    return this.app.get(path, func)
-  }
-
-  set(setting, val) {
-    return this.app.set(setting, val)
-  }
-
-  listen(port) {
-    return this.server.listen(port)
-  }
-
-  on(event, func) {
-    return this.socket.io.on(event, func)
-  }
-
-  delete(event) {
-    return this.socket.delete(event)
+    this.http = http.createServer(this.app)
+    this.socket = new Socket(this.http)
   }
 }
 
