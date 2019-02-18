@@ -24,6 +24,6 @@ term.add('cmd.exe')
 term.add('bash.exe')
 term.add('node.exe')
 
-term.listen(1337)
+term.listen()
 
 console.log('Terminal listening on localhost:1337')
