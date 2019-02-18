@@ -28,7 +28,7 @@ term.add('cmd.exe')  // localhost:1337/cmd.exe
 term.add('bash.exe') // localhost:1337/bash.exe
 term.add('node.exe') // localhost:1337/node.exe
 
-term.listen(1337)
+term.listen()
 
 console.log('Terminal listening on localhost:1337')
 ```
