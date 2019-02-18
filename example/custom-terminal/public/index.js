@@ -21,13 +21,13 @@ const socket = io.connect('http://localhost:' + port)
 Terminal.applyAddon(fit)
 
 const term = new Terminal({
-  rightClickSelectsWord: true,
+  rightClickSelectsWord: false,
   cursorBlink: true,
   scrollback: 5000,
   tabStopWidth: 4
 })
 
-term.open(document.getElementById('terminal'))
+term.open(document.body)
 
 term.on('data', (data) => {
   socket.emit('write', data)
@@ -40,6 +40,11 @@ socket.on('write', (data) => {
 socket.emit('spawn', shell)
 
 term.fit()
+socket.emit('resize', {cols: term.cols, rows: term.rows})
+
+term.on('resize', (size) => {
+  socket.emit('resize', size)
+})
 
 window.addEventListener('resize', (data) => {
   setTimeout(() => {
