@@ -30,7 +30,7 @@ class Terminal {
     self.server.on('connection', (client) => {
       client.on('spawn', (shll) => {
         if (!shll) shll = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
-        let term = spawn(shll, [], { name: 'jsterm', cwd: os.homedir(), env: process.env })
+        let term = spawn(shll, [], { cwd: os.homedir(), env: process.env })
 
         term.on('data', (data) => {
           client.emit('write', data.toString('utf8'))
