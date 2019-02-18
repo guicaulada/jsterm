@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-let Terminal = require('jsterm')
+const Terminal = require('jsterm')
 
 let term = new Terminal(1337)
 
