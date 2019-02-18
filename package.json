@@ -1,6 +1,6 @@
 {
   "name": "jsterm",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A terminal emulator made with Node.js and xterm.js",
   "main": "index.js",
   "scripts": {

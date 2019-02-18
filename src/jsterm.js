@@ -40,6 +40,10 @@ class Terminal {
           term.write(data)
         })
 
+        client.on('resize', (data) => {
+          term.resize(data.cols, data.rows)
+        })
+
         client.on('disconnect', (data) => {
           term.kill()
         })
