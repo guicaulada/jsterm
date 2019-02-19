@@ -23,13 +23,15 @@ const Terminal = require('jsterm')
 const allow = [
     'localhost',
     '127.0.0.1',
-    '0.0.0.0'
+    '0.0.0.0',
+    '1'
 ]
 
 let term = new Terminal(1337)
 
 term.app.use('/*', (req, res, next) => {
   let ip = req.ip.split(':').slice(-1)[0]
+  // console.log(ip) // Use this to see your ip on console
   if (allow.includes(ip)) {
       next()
   } else {
