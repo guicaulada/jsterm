@@ -40,7 +40,7 @@ socket.on('write', (data) => {
 
 socket.emit('spawn', shell)
 
-// This is necessary if you remove the scrollbars
+// This is necessary to hide scrollbars
 let resized = false
 let resize = (size) => {
   if (!resized) {
@@ -51,7 +51,7 @@ let resize = (size) => {
 }
 
 term.on('resize', (size) => {
-  if (!resized) resize(size) // Necessary for scrollbars
+  if (!resized) resize(size) // Necessary to hide scrollbars
   else socket.emit('resize', size)
 })
 
