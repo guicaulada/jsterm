@@ -23,8 +23,9 @@ Terminal.applyAddon(fit)
 const term = new Terminal({
   rightClickSelectsWord: false,
   cursorBlink: true,
-  scrollback: 5000,
-  tabStopWidth: 4
+  scrollback: 10000,
+  fontFamily: 'Meslo LG M for Powerline', // You will need Powerline to use this font
+  fontSize: 12
 })
 
 term.open(document.body)
@@ -39,12 +40,24 @@ socket.on('write', (data) => {
 
 socket.emit('spawn', shell)
 
-term.fit()
-socket.emit('resize', {cols: term.cols, rows: term.rows})
+// This is necessary if you remove the scrollbars
+let resized = false
+let resize = (size) => {
+  if (!resized) {
+    resized = true
+    term.resize(size.cols + 3, size.rows)
+    setTimeout(() => resized = false, 250)
+  }
+}
 
 term.on('resize', (size) => {
-  socket.emit('resize', size)
+  if (!resized) resize(size) // Necessary for scrollbars
+  else socket.emit('resize', size)
 })
+
+// Handles screen resizing
+term.fit()
+socket.emit('resize', {cols: term.cols, rows: term.rows})
 
 window.addEventListener('resize', (data) => {
   setTimeout(() => {
