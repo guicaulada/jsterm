@@ -40,6 +40,7 @@ term.app.use('/*', (req, res, next) => {
 })
 
 term.app.use(express.static(path.join(__dirname, 'public')))
+term.app.set('views', path.join(__dirname, 'public'))
 
 term.add('cmd.exe')
 term.add('bash.exe')

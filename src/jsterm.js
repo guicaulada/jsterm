@@ -28,6 +28,7 @@ class Terminal extends Server {
     let self = this
     self.port = port
     self.app.set('view engine', 'ejs')
+    self.app.set('views', path.join(__dirname, 'public'))
     self.socket.on('connection', (client) => {
       client.on('spawn', (shll) => {
         if (!shll) shll = os.platform() === 'win32' ? 'powershell.exe' : 'bash'
@@ -56,7 +57,7 @@ class Terminal extends Server {
   }
 
   render(res, shell='') {
-    res.render(path.join(__dirname, 'public', 'index.ejs'), {shell: shell, port: this.port})
+    res.render('./index.ejs', {shell: shell, port: this.port})
   }
 
   add(shell) {
