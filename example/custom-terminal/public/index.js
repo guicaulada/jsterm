@@ -21,6 +21,7 @@ const socket = io.connect('http://localhost:' + port)
 Terminal.applyAddon(fit)
 
 const term = new Terminal({
+  allowTransparency: true,
   rightClickSelectsWord: false,
   cursorBlink: true,
   scrollback: 10000,
@@ -64,3 +65,13 @@ window.addEventListener('resize', (data) => {
     term.fit()
   }, 250)
 })
+
+setTimeout(() => { // https://apod.nasa.gov/apod/archivepix.html
+  $.getJSON('https://api.nasa.gov/planetary/apod?api_key=' + data.nasa_apik, (json) => {
+    $('.xterm-viewport').css('background-image', `url(${json.hdurl})`);
+    $('.xterm-viewport').css('opacity', 0.33);
+    $('.xterm-viewport').css('background-repeat', 'no-repeat');
+    $('.xterm-viewport').css('background-position', 'center center');
+    $('body').append(`<div id="nasa_image" style="visibility: hidden !important;"><p>${json.title}</p><p>${json.explanation}</p></div>`)
+  })
+}, 1000)

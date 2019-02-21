@@ -20,20 +20,23 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
   <head>
     <title>jsterm</title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
     <link rel="stylesheet" href="node_modules/xterm/dist/xterm.css" />
     <script src="node_modules/xterm/dist/xterm.js"></script>
 
     <script src="node_modules/xterm/dist/addons/fit/fit.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 
     <link rel="stylesheet" href="./style.css" />
   </head>
 
   <body>
     <script>
-      let shell = '<%= shell%>'
-      let port = <%= port%>
+      let data = <%- JSON.stringify(data)%>
+      let shell = '<%- shell%>'
+      let port = <%- port%>
     </script>
     <script src='./index.js'></script>
   </body>

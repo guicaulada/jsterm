@@ -43,4 +43,4 @@ term.add('node.exe')
 
 term.listen()
 
-console.log('Terminal listening on localhost:1337')
+console.log('Terminal listening on localhost:' + term.port)

@@ -42,10 +42,13 @@ term.app.use('/*', (req, res, next) => {
 term.app.use(express.static(path.join(__dirname, 'public')))
 term.app.set('views', path.join(__dirname, 'public'))
 
+// https://api.nasa.gov/index.html#apply-for-an-api-key
+term.data = {nasa_apik: process.env.NASA_API_KEY}
+
 term.add('cmd.exe')
 term.add('bash.exe')
 term.add('node.exe')
 
 term.listen()
 
-console.log('Terminal listening on localhost:1337')
+console.log('Terminal listening on localhost:' + term.port)
