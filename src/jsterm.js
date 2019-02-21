@@ -26,6 +26,7 @@ class Terminal extends Server {
   constructor(port) {
     super()
     let self = this
+    self.data = {}
     self.port = port
     self.app.set('view engine', 'ejs')
     self.app.set('views', path.join(__dirname, 'public'))
@@ -57,7 +58,7 @@ class Terminal extends Server {
   }
 
   render(res, shell='') {
-    res.render('./index.ejs', {shell: shell, port: this.port})
+    res.render('./index.ejs', {shell: shell, port: this.port, data: this.data})
   }
 
   add(shell) {

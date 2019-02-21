@@ -32,8 +32,9 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
   <body>
     <script>
-      let shell = '<%= shell%>'
-      let port = <%= port%>
+      let data = <%- JSON.stringify(data)%>
+      let shell = '<%- shell%>'
+      let port = <%- port%>
     </script>
     <script src='./index.js'></script>
   </body>
