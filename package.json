@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node example/index.js",
-    "install": "npm install --prefix src/public xterm"
+    "install": "npm install --prefix src/public xterm xterm-addon-fit"
   },
   "repository": {
     "type": "git",

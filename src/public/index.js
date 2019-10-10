@@ -18,8 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const socket = io.connect('http://localhost:' + port)
 
-Terminal.applyAddon(fit)
-
+const fitAddon = new FitAddon.FitAddon()
 const term = new Terminal({
   rightClickSelectsWord: false,
   cursorBlink: true,
@@ -27,27 +26,29 @@ const term = new Terminal({
   tabStopWidth: 4
 })
 
-term.open(document.body)
+term.loadAddon(fitAddon)
 
-term.on('data', (data) => {
+term.open(document.getElementById('terminal'))
+
+term.onData((data) => {
   socket.emit('write', data)
 })
 
 socket.on('write', (data) => {
-  term.write(data)
+  term.write(data, () => console.log(data))
 })
 
 socket.emit('spawn', shell)
 
-term.fit()
-socket.emit('resize', {cols: term.cols, rows: term.rows})
-
-term.on('resize', (size) => {
+term.onResize((size) => {
   socket.emit('resize', size)
 })
 
+fitAddon.fit()
+socket.emit('resize', { cols: term.cols, rows: term.rows })
+
 window.addEventListener('resize', (data) => {
   setTimeout(() => {
-    term.fit()
+    fitAddon.fit()
   }, 250)
 })
