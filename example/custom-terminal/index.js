@@ -48,6 +48,7 @@ term.data = {nasa_apik: process.env.NASA_API_KEY}
 term.add('cmd.exe')
 term.add('bash.exe')
 term.add('node.exe')
+term.add('pwsh.exe')
 
 term.listen()
 

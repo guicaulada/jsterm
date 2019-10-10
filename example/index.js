@@ -40,6 +40,7 @@ term.app.use('/*', (req, res, next) => {
 term.add('cmd.exe')
 term.add('bash.exe')
 term.add('node.exe')
+term.add('pwsh.exe')
 
 term.listen()
 

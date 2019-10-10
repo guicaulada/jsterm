@@ -18,8 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 const socket = io.connect('http://localhost:' + port)
 
-Terminal.applyAddon(fit)
-
+const fitAddon = new FitAddon.FitAddon()
 const term = new Terminal({
   allowTransparency: true,
   rightClickSelectsWord: false,
@@ -29,14 +28,16 @@ const term = new Terminal({
   fontSize: 12
 })
 
-term.open(document.body)
+term.loadAddon(fitAddon)
 
-term.on('data', (data) => {
+term.open(document.getElementById('terminal'))
+
+term.onData((data) => {
   socket.emit('write', data)
 })
 
 socket.on('write', (data) => {
-  term.write(data)
+  term.write(data, () => console.log(data))
 })
 
 socket.emit('spawn', shell)
@@ -51,25 +52,26 @@ let resize = (size) => {
   }
 }
 
-term.on('resize', (size) => {
+term.onResize((size) => {
   if (!resized) resize(size) // Necessary to hide scrollbars
   else socket.emit('resize', size)
 })
 
 // Handles screen resizing
-term.fit()
+fitAddon.fit()
 socket.emit('resize', {cols: term.cols, rows: term.rows})
 
 window.addEventListener('resize', (data) => {
   setTimeout(() => {
-    term.fit()
+    fitAddon.fit()
   }, 250)
 })
 
 setTimeout(() => { // https://apod.nasa.gov/apod/archivepix.html
   $.getJSON('https://api.nasa.gov/planetary/apod?api_key=' + data.nasa_apik, (json) => {
+    console.log(json)
     $('.xterm-viewport').css('background-image', `url(${json.hdurl})`);
-    $('.xterm-viewport').css('opacity', 0.33);
+    $('.xterm-viewport').css('opacity', 0.5);
     $('.xterm-viewport').css('background-repeat', 'no-repeat');
     $('.xterm-viewport').css('background-position', 'center center');
     $('body').append(`<div id="nasa_image" style="visibility: hidden !important;"><p>${json.title}</p><p>${json.explanation}</p></div>`)
